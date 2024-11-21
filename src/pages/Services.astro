@@ -1,0 +1,359 @@
+---
+import "@fontsource-variable/onest";
+import Footer from "../components/Footer.astro";
+
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="description" content="Astro description" />
+  <meta name="viewport" content="width=device-width" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="generator" content={Astro.generator} />
+  <title>{title}</title>
+</head>
+<body>
+  <!-- Fondo -->
+  <div
+    class="absolute inset-0 -z-10 h-full w-full [background:radial-gradient(125%_125%_at_50%_10%,#000_40%,#63e_100%)]"
+  >
+  </div>
+
+  <!-- Barra de navegación -->
+  <nav
+    class="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600"
+  >
+    <div
+      class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
+    >
+      <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+        <button
+          type="button"
+          class="text-white bg-purple-600 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          >Cont&aacute;ctanos</button
+        >
+        <button
+          data-collapse-toggle="navbar-sticky"
+          type="button"
+          class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+          aria-controls="navbar-sticky"
+          aria-expanded="false"
+        >
+          <span class="sr-only">Open main menu</span>
+          <svg
+            class="w-5 h-5"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 17 14"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M1 1h15M1 7h15M1 13h15"></path>
+          </svg>
+        </button>
+      </div>
+      <div
+        class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
+        id="navbar-sticky"
+      >
+        <ul
+          class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700"
+        >
+          <li>
+            <a
+              href="/"
+              class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white"
+              >Home</a
+            >
+          </li>
+          <li>
+            <a
+              href="/About"
+              class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white"
+              >Sobre nosotros</a
+            >
+          </li>
+          <li>
+            <a
+              href="/Services"
+              class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
+              aria-current="page">Servicios</a
+            >
+          </li>
+          <li>
+            <a
+              href="/Places"
+              class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white"
+              >Lugares</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Contenedor para centrar la tarjeta -->
+  <div class="flex items-center justify-center min-h-screen pt-20 gap-6">
+    <div
+      class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+    >
+      <a href="#"
+        ><img
+          class="rounded-t-lg"
+          src="https://www.sinapsisconsulting.mx/Portals/0/xBlog/uploads/2021/6/16/asesor-ventas.jpg"
+          alt=""
+        /></a
+      >
+      <div class="p-5">
+        <a href="#">
+          <h5
+            class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+          >
+            Asesoramiento para compradores y vendedores
+          </h5>
+        </a>
+        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+          Ayudamos a compradores y vendedores a tomar decisiones informadas,
+          desde la negociación hasta el cierre de la transacción, asegurando el
+          mejor valor posible en el mercado.
+        </p>
+        <a
+          href="#"
+          class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-purple-600 rounded-lg hover:bg-purple-800"
+        >
+          Mas informacion
+          <svg
+            class="rtl:rotate-180 w-3.5 h-3.5 ms-2"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 14 10"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M1 5h12m0 0L9 1m4 4L9 9"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div
+      class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+    >
+      <a href="#">
+        <img class="rounded-t-lg" src="/src/img/rs=w_1280.jpg" alt="" />
+      </a>
+      <div class="p-5">
+        <a href="#">
+          <h5
+            class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+          >
+            Arrendamiento y Administración
+          </h5>
+        </a>
+        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+          Gestionamos arrendamientos, buscando inquilinos confiables y cuidando
+          todos los aspectos de la administración de propiedades para garantizar
+          rentabilidad y tranquilidad a los propietarios.
+        </p>
+        <a
+          href="#"
+          class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-purple-600 rounded-lg hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+        Mas informacion
+          <svg
+            class="rtl:rotate-180 w-3.5 h-3.5 ms-2"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 14 10"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M1 5h12m0 0L9 1m4 4L9 9"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div
+      class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+    >
+      <a href="#">
+        <img
+          class="rounded-t-lg"
+          src="https://www.inu.cl/wp-content/uploads/2022/08/perfil-de-inversionista.png"
+          alt=""
+        />
+      </a>
+      <div class="p-5">
+        <a href="#">
+          <h5
+            class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+          >
+            Servicios para Inversionistas y Asesoramiento
+          </h5>
+        </a>
+        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+          Ofrecemos asesoría a inversionistas sobre oportunidades y rentabilidad
+          en bienes raíces, ayudando a maximizar el rendimiento de sus
+          inversiones,ayudando a nuestros clientes con su inversión.
+        </p>
+        <a
+          href="#"
+          class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-purple-600 rounded-lg hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+        Mas informacion
+          <svg
+            class="rtl:rotate-180 w-3.5 h-3.5 ms-2"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 14 10"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M1 5h12m0 0L9 1m4 4L9 9"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div
+      class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+    >
+      <a href="#">
+        <img
+          class="rounded-t-lg"
+          src="https://capitalauditors.com/wp-content/uploads/2024/02/concursal.jpg"
+          alt=""
+        />
+      </a>
+      <div class="p-5">
+        <a href="#">
+          <h5
+            class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+          >
+            Asesoramiento Especializado
+          </h5>
+        </a>
+        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+          Proporcionamos asesoría en áreas clave como financiamiento y
+          planificación fiscal, guiando a nuestros clientes para tomar
+          decisiones estratégicas en el sector inmobiliario
+        </p>
+        <a
+          href="#"
+          class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-purple-600 rounded-lg hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+        Mas informacion
+          <svg
+            class="rtl:rotate-180 w-3.5 h-3.5 ms-2"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 14 10"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M1 5h12m0 0L9 1m4 4L9 9"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  <Footer />
+</body>
+
+<style is:global>
+  html {
+    font-family: "Onest Variable", system-ui, sans-serif;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+  }
+
+  .pt-20 {
+    padding-top: 5rem; /* Ajusta según el tamaño de la barra de navegación */
+  }
+
+  .flex {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .max-w-sm {
+    flex: 1 1 calc(25% - 1.5rem); /* Adjust the percentage based on the number of cards per row */
+    box-sizing: border-box;
+  }
+
+  @media (max-width: 1024px) {
+    .max-w-sm {
+      flex: 1 1 calc(50% - 1.5rem); /* Two cards per row on medium screens */
+    }
+  }
+
+  @media (max-width: 640px) {
+    .max-w-sm {
+      flex: 1 1 100%; /* One card per row on small screens */
+    }
+  }
+.max-w-sm {
+    transition: transform 1s ease, opacity 0.8s ease;
+    transform: translateY(20px);
+    opacity: 0;
+}
+
+.max-w-sm:nth-child(1) {
+    transition-delay: 0.2s;
+}
+
+.max-w-sm:nth-child(2) {
+    transition-delay: 0.3s;
+}
+
+.max-w-sm:nth-child(3) {
+    transition-delay: 0.4s;
+}
+
+.max-w-sm:nth-child(4) {
+    transition-delay: 0.5s;
+}
+
+.max-w-sm.appear {
+    transform: translateY(0);
+    opacity: 1;
+}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const cards = document.querySelectorAll(".max-w-sm");
+    cards.forEach((card) => {
+        card.classList.add("appear");
+    });
+});
+</script>
+
+</style>
