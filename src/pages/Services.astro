@@ -1,359 +1,201 @@
 ---
-import "@fontsource-variable/onest";
-import Footer from "../components/Footer.astro";
+import Layout from "../layouts/Layout.astro";
+import Carousel from "../components/Carousel.astro";
+import ImageCarousel from "../components/ImageCarousel.astro";
 
+const carouselImages = [
+  {
+    src: "https://www.cislab.com.mx/web/image/114560-e9948db1/posts%202023%20%2817%29.jpg",
+    alt: "Tubos de ensayo",
+    title: "Tubos de ensayo",
+    description: "Equipamiento de alta calidad para laboratorios"
+  },
+  {
+    src: "https://kalstein.com.pe/wp-content/uploads/2021/11/microscope-in-laboratory-2021-09-24-04-01-28-utc-1-scaled-1280x855.jpg",
+    alt: "Microscopio",
+    title: "Microscopios",
+    description: "Equipos de precisión para análisis detallados"
+  },
+  {
+    src: "https://www.tplaboratorioquimico.com/wp-content/uploads/2023/11/materiales-e-instrumentos-laboratorio-quimico.jpg",
+    alt: "Equipamiento de laboratorio",
+    title: "Equipamiento especializado",
+    description: "Soluciones completas para su laboratorio"
+  }
+];
 
-interface Props {
-  title: string;
-}
-
-const { title } = Astro.props;
+const serviceCategories = [
+  {
+    title: "Material, Reactivo y Equipo de Laboratorio",
+    icon: "flask",
+    description: "Ofrecemos una amplia gama de materiales, reactivos y equipos para todo tipo de laboratorios.",
+    downloads: [
+      { name: "ANA 12 LINE INSERTO", fileUrl: "/downloads/ANA 12 LINE INSERTO.pdf" },
+      { name: "GL FUNGIFAST (inserto) 2025", fileUrl: "/downloads/GL FUNGIFAST (inserto) 2025.pdf"},
+      { name: "GL MR2 MYCOFAST REVOLUTION 2 (Inserto) 2025", fileUrl:"/downloads/GL Inserto MR2 110525.pdf" }
+    ]
+  },
+  {
+    title: "Material, Reactivo y Equipo Forense",
+    icon: "magnifying-glass",
+    description: "Soluciones especializadas para laboratorios forenses y de investigación criminal."
+  },
+  {
+    title: "Material de Curación y Equipo Médico",
+    icon: "heart-pulse",
+    description: "Productos de alta calidad para el cuidado médico y procedimientos sanitarios."
+  },
+  {
+    title: "Primeros Auxilios, Antidoping y Alcoholimetría",
+    icon: "first-aid",
+    description: "Equipos para emergencias, pruebas de detección y control de sustancias."
+  },
+  {
+    title: "Medicamento de Libre Comercialización",
+    icon: "pills",
+    description: "Medicamentos disponibles sin receta médica para tratamientos comunes."
+  },
+  {
+    title: "Material y Productos de Limpieza",
+    icon: "spray-can",
+    description: "Productos especializados para la limpieza y desinfección de laboratorios."
+  },
+  {
+    title: "Mantenimiento Equipos de Laboratorio",
+    icon: "wrench",
+    description: "Servicios de mantenimiento preventivo y correctivo para equipos de laboratorio."
+  }
+];
 ---
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="description" content="Astro description" />
-  <meta name="viewport" content="width=device-width" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <meta name="generator" content={Astro.generator} />
-  <title>{title}</title>
-</head>
-<body>
-  <!-- Fondo -->
-  <div
-    class="absolute inset-0 -z-10 h-full w-full [background:radial-gradient(125%_125%_at_50%_10%,#000_40%,#63e_100%)]"
-  >
-  </div>
-
-  <!-- Barra de navegación -->
-  <nav
-    class="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600"
-  >
-    <div
-      class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
-    >
-      <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-        <button
-          type="button"
-          class="text-white bg-purple-600 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          >Cont&aacute;ctanos</button
-        >
-        <button
-          data-collapse-toggle="navbar-sticky"
-          type="button"
-          class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-          aria-controls="navbar-sticky"
-          aria-expanded="false"
-        >
-          <span class="sr-only">Open main menu</span>
-          <svg
-            class="w-5 h-5"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 17 14"
+<Layout 
+  title="Productos y Servicios"
+  description="General Lab, empresa con más de 18 años de experiencia, creada para satisfacer necesidades en áreas de laboratorio, distribuidor exclusivo en el sureste de México."
+>
+  <main class="container mx-auto px-4 py-12 fade-in">
+    <h1 class="text-4xl font-bold text-center mb-12 text-blue-700 dark:text-blue-500">Productos y Servicios</h1>
+    
+    <!-- Carousel de imágenes -->
+    <section class="mb-16">
+      <Carousel images={carouselImages} />
+    </section>
+    
+    <!-- Categorías de servicios -->
+    <section class="mb-16">
+      <h2 class="text-3xl font-bold text-center mb-8 text-gray-900 dark:text-white">Nuestras Categorías</h2>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {serviceCategories.map((category, idx) => (
+          <div
+            class={`service-card bg-white/90 backdrop-blur-sm rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 dark:bg-gray-800/90 flex flex-col ${
+              category.downloads ? 'p-4 min-h-[250px]' : 'p-3 compact-card'
+            } animate-fade-in-up`}
+            style={{ animationDelay: `${idx * 80}ms` }}
           >
-            <path
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M1 1h15M1 7h15M1 13h15"></path>
-          </svg>
-        </button>
+            <div class="flex items-center mb-3">
+              <span class="text-blue-700 dark:text-blue-500 mr-3">
+                <i class={`fas fa-${category.icon} text-lg`}></i>
+              </span>
+              <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                {category.title}
+              </h3>
+            </div>
+            <p class="text-base text-gray-700 dark:text-gray-300">
+              {category.description}
+            </p>
+            {category.downloads && (
+              <div class="mt-auto pt-2 w-full flex flex-col justify-start border-t">
+                <details class="cursor-pointer">
+                  <summary class="text-base font-medium mb-1 text-blue-600 hover:text-blue-800 dark:text-blue-400 flex items-center">
+                    <i class="fas fa-chevron-right text-xs mr-1 transform transition-transform duration-200"></i>
+                    Ver reactivos disponibles
+                  </summary>
+                  <ul class="space-y-1 mt-1 pl-4">
+                    {category.downloads.map(item => (
+                      <li>
+                        <a 
+                          href={item.fileUrl} 
+                          download
+                          class="flex items-center text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 text-base"
+                        >
+                          <i class="fas fa-file-download mr-1"></i>
+                          {item.name}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </details>
+              </div>
+            )}
+          </div>
+        ))}
       </div>
-      <div
-        class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
-        id="navbar-sticky"
-      >
-        <ul
-          class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700"
-        >
-          <li>
-            <a
-              href="/"
-              class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white"
-              >Home</a
-            >
-          </li>
-          <li>
-            <a
-              href="/About"
-              class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white"
-              >Sobre nosotros</a
-            >
-          </li>
-          <li>
-            <a
-              href="/Services"
-              class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
-              aria-current="page">Servicios</a
-            >
-          </li>
-          <li>
-            <a
-              href="/Places"
-              class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white"
-              >Lugares</a
-            >
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Contenedor para centrar la tarjeta -->
-  <div class="flex items-center justify-center min-h-screen pt-20 gap-6">
-    <div
-      class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
-    >
-      <a href="#"
-        ><img
-          class="rounded-t-lg"
-          src="https://www.sinapsisconsulting.mx/Portals/0/xBlog/uploads/2021/6/16/asesor-ventas.jpg"
-          alt=""
-        /></a
-      >
-      <div class="p-5">
-        <a href="#">
-          <h5
-            class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
-          >
-            Asesoramiento para compradores y vendedores
-          </h5>
-        </a>
-        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-          Ayudamos a compradores y vendedores a tomar decisiones informadas,
-          desde la negociación hasta el cierre de la transacción, asegurando el
-          mejor valor posible en el mercado.
-        </p>
-        <a
-          href="#"
-          class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-purple-600 rounded-lg hover:bg-purple-800"
-        >
-          Mas informacion
-          <svg
-            class="rtl:rotate-180 w-3.5 h-3.5 ms-2"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 14 10"
-          >
-            <path
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M1 5h12m0 0L9 1m4 4L9 9"></path>
-          </svg>
-        </a>
-      </div>
-    </div>
-    <div
-      class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
-    >
-      <a href="#">
-        <img class="rounded-t-lg" src="/src/img/rs=w_1280.jpg" alt="" />
+    </section>
+    
+    <!-- Call to action -->
+    <div class="text-center mt-12">
+      <p class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Nuestras prestigiadas marcas</p>
+      <ImageCarousel />
+      <p class="text-lg mb-4 text-gray-700 dark:text-gray-300">¿Interesado en nuestros productos y/o servicios?</p>
+      <a href="/Forms" class="inline-block bg-blue-700 hover:bg-blue-800 text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700">
+        Contáctanos
       </a>
-      <div class="p-5">
-        <a href="#">
-          <h5
-            class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
-          >
-            Arrendamiento y Administración
-          </h5>
-        </a>
-        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-          Gestionamos arrendamientos, buscando inquilinos confiables y cuidando
-          todos los aspectos de la administración de propiedades para garantizar
-          rentabilidad y tranquilidad a los propietarios.
-        </p>
-        <a
-          href="#"
-          class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-purple-600 rounded-lg hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-        >
-        Mas informacion
-          <svg
-            class="rtl:rotate-180 w-3.5 h-3.5 ms-2"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 14 10"
-          >
-            <path
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M1 5h12m0 0L9 1m4 4L9 9"></path>
-          </svg>
-        </a>
-      </div>
     </div>
-    <div
-      class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
-    >
-      <a href="#">
-        <img
-          class="rounded-t-lg"
-          src="https://www.inu.cl/wp-content/uploads/2022/08/perfil-de-inversionista.png"
-          alt=""
-        />
-      </a>
-      <div class="p-5">
-        <a href="#">
-          <h5
-            class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
-          >
-            Servicios para Inversionistas y Asesoramiento
-          </h5>
-        </a>
-        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-          Ofrecemos asesoría a inversionistas sobre oportunidades y rentabilidad
-          en bienes raíces, ayudando a maximizar el rendimiento de sus
-          inversiones,ayudando a nuestros clientes con su inversión.
-        </p>
-        <a
-          href="#"
-          class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-purple-600 rounded-lg hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-        >
-        Mas informacion
-          <svg
-            class="rtl:rotate-180 w-3.5 h-3.5 ms-2"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 14 10"
-          >
-            <path
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M1 5h12m0 0L9 1m4 4L9 9"></path>
-          </svg>
-        </a>
-      </div>
-    </div>
-    <div
-      class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
-    >
-      <a href="#">
-        <img
-          class="rounded-t-lg"
-          src="https://capitalauditors.com/wp-content/uploads/2024/02/concursal.jpg"
-          alt=""
-        />
-      </a>
-      <div class="p-5">
-        <a href="#">
-          <h5
-            class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
-          >
-            Asesoramiento Especializado
-          </h5>
-        </a>
-        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-          Proporcionamos asesoría en áreas clave como financiamiento y
-          planificación fiscal, guiando a nuestros clientes para tomar
-          decisiones estratégicas en el sector inmobiliario
-        </p>
-        <a
-          href="#"
-          class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-purple-600 rounded-lg hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-        >
-        Mas informacion
-          <svg
-            class="rtl:rotate-180 w-3.5 h-3.5 ms-2"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 14 10"
-          >
-            <path
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M1 5h12m0 0L9 1m4 4L9 9"></path>
-          </svg>
-        </a>
-      </div>
-    </div>
-  </div>
-  <Footer />
-</body>
+  </main>
+</Layout>
 
-<style is:global>
-  html {
-    font-family: "Onest Variable", system-ui, sans-serif;
+<style>
+  .fade-in {
+    from { opacity: 0; transform: translateY(20px); }  
+    @keyframes fadeIn { }    
+    animation: fadeIn 1s ease-out;    
+    to { opacity: 1; transform: translateY(0); }
   }
-
-  body {
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
+  @keyframes fade-in-up {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
-
-  .pt-20 {
-    padding-top: 5rem; /* Ajusta según el tamaño de la barra de navegación */
+  .animate-fade-in-up {
+    animation: fade-in-up 0.5s ease-out forwards;
   }
-
-  .flex {
+  details[open] summary i {
+    transform: rotate(90deg);
+  }
+  
+  /* Elimina espacio vertical extra en tarjetas sin descargas */
+  .compact-card {
+    padding-top: 0.75rem !important;
+    padding-bottom: 0.75rem !important;
+    height: auto !important;
+    min-height: auto !important;
+  }
+  
+  .compact-card h3 {
+    margin-bottom: 0.25rem !important;
+  }
+  
+  /* Aumenta el tamaño del texto en todas las tarjetas */
+  .service-card p {
+    font-size: 1rem !important; /* text-base */
+    line-height: 1.5 !important;
+  }
+  
+  .service-card h3 {
+    font-size: 1.125rem !important; /* text-lg */
+    line-height: 1.75rem !important;
+  }
+  
+  /* Asegura que las tarjetas sin descargas sean más compactas */
+  .service-card:not(:has(details)) {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
   }
-
-  .max-w-sm {
-    flex: 1 1 calc(25% - 1.5rem); /* Adjust the percentage based on the number of cards per row */
-    box-sizing: border-box;
-  }
-
-  @media (max-width: 1024px) {
-    .max-w-sm {
-      flex: 1 1 calc(50% - 1.5rem); /* Two cards per row on medium screens */
-    }
-  }
-
-  @media (max-width: 640px) {
-    .max-w-sm {
-      flex: 1 1 100%; /* One card per row on small screens */
-    }
-  }
-.max-w-sm {
-    transition: transform 1s ease, opacity 0.8s ease;
-    transform: translateY(20px);
-    opacity: 0;
-}
-
-.max-w-sm:nth-child(1) {
-    transition-delay: 0.2s;
-}
-
-.max-w-sm:nth-child(2) {
-    transition-delay: 0.3s;
-}
-
-.max-w-sm:nth-child(3) {
-    transition-delay: 0.4s;
-}
-
-.max-w-sm:nth-child(4) {
-    transition-delay: 0.5s;
-}
-
-.max-w-sm.appear {
-    transform: translateY(0);
-    opacity: 1;
-}
-</style>
-
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-    const cards = document.querySelectorAll(".max-w-sm");
-    cards.forEach((card) => {
-        card.classList.add("appear");
-    });
-});
-</script>
-
 </style>

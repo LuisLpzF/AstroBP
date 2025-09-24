@@ -1,28 +1,15 @@
 ---
 interface Props {
-  class?: string
-    title: string
+  title?: string;
+  class?: string;
 }
 
-const {title} = Astro.props
+const { title, class: className } = Astro.props;
 ---
 
-<article 
-class={`
-${Astro.props.class}
-col-span-3
-relative rounded-xl
-backdrop-blur-md
-border border-black/10
-shadow-inner shadow-white/10
-group
-`}
->
-<div class="absolute z-10 bottom-0 top-0 w-full h-full
-bg-gradient-to-b from-transparent via-black/20 to black/80  "></div>
-<slot name="image" />
-<div class="relative select-none flex flex-col gap-1 p-6 text-lg z-20 justify-end h-full">
-<h2 class="text-3xl font-semibold text-balance text-white mb-4">{title}</h2>
-<slot name="content" />
-</div>
+<article class={`bg-white/90 backdrop-blur-sm rounded-lg shadow-md p-6 dark:bg-gray-800/90 ${className}`}>
+  {title && <h3 class="text-xl font-bold mb-4 text-blue-700 dark:text-blue-500">{title}</h3>}
+  <div class="text-gray-700 dark:text-gray-300">
+    <slot />
+  </div>
 </article>

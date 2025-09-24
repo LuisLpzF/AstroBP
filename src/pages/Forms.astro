@@ -1,0 +1,127 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout 
+  title="Contacto"
+  description="Ponte en contacto con General Lab para más información sobre nuestros productos y servicios."
+>
+  <main class="container mx-auto px-4 py-8 fade-in">
+    <section class="max-w-3xl mx-auto bg-white/90 backdrop-blur-sm rounded-lg shadow-md p-8 dark:bg-gray-800/90 mb-12">
+      <h1 class="text-3xl font-bold text-center mb-6 text-gray-900 dark:text-white">Contacta con nosotros</h1>
+      <p class="text-gray-600 dark:text-gray-400 text-center mb-8">
+        Completa el formulario y nos pondremos en contacto contigo lo antes posible.
+      </p>
+
+      <form id="contactForm" class="space-y-4">
+        <div>
+          <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
+          <input type="text" id="name" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+        </div>
+        <div>
+          <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+          <input type="email" id="email" name="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+        </div>
+        <div>
+          <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mensaje</label>
+          <textarea id="message" name="message" rows="4" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required></textarea>
+        </div>
+        <div id="formStatus" class="hidden p-4 mb-4 text-sm rounded-lg" role="alert"></div>
+        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Enviar mensaje</button>
+      </form>
+      
+      <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          const form = document.getElementById('contactForm') as HTMLFormElement;
+          const formStatus = document.getElementById('formStatus');
+          
+          if (form && formStatus) {
+            form.addEventListener('submit', async (e) => {
+              e.preventDefault();
+              
+              // Get form data
+              const nameInput = document.getElementById('name') as HTMLInputElement;
+              const emailInput = document.getElementById('email') as HTMLInputElement;
+              const messageInput = document.getElementById('message') as HTMLTextAreaElement;
+              
+              if (!nameInput || !emailInput || !messageInput) {
+                console.error('Form inputs not found');
+                return;
+              }
+              
+              const data = {
+                name: nameInput.value,
+                email: emailInput.value,
+                message: messageInput.value
+              };
+              
+              try {
+                // Show loading state
+                formStatus.textContent = 'Enviando mensaje...';
+                formStatus.className = 'p-4 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400';
+                formStatus.classList.remove('hidden');
+                
+                // Send data to API endpoint
+                const response = await fetch('/api/send-email', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                  // Mensaje de exito
+                  formStatus.textContent = '¡Mensaje enviado con éxito! Nos pondremos en contacto contigo pronto.';
+                  formStatus.className = 'p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400';
+                  form.reset();
+                } else {
+                  // Mensaje de error
+                  formStatus.textContent = 'Hubo un problema al enviar tu mensaje. Por favor, intenta de nuevo.';
+                  formStatus.className = 'p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400';
+                }
+              } catch (error) {
+                console.error('Error:', error);
+                formStatus.textContent = 'Hubo un problema al enviar tu mensaje. Por favor, intenta de nuevo.';
+                formStatus.className = 'p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400';
+              }
+            });
+          } else {
+            console.error('Form or formStatus element not found');
+          }
+        });
+      </script>
+    </section>
+
+    <section class="max-w-3xl mx-auto mt-12 bg-white/90 backdrop-blur-sm rounded-lg shadow-md p-8 dark:bg-gray-800/90">
+      <h2 class="text-2xl font-bold text-center mb-6 text-gray-900 dark:text-white">Información de contacto</h2>
+      
+      <!-- <div class="grid md:grid-cols-2 gap-8">
+        <div class="text-center md:text-left">
+          <h3 class="text-lg font-semibold mb-2 text-gray-900 dark:text-white">Dirección</h3>
+          <p class="text-gray-600 dark:text-gray-400">
+            Av. Principal #123<br>
+            Col. Centro, CP 97000<br>
+            Mérida, Yucatán, México
+          </p>
+        </div> -->
+        
+        <div class="text-center md:text-center">
+          <h3 class="text-lg font-semibold mb-2 text-gray-900 dark:text-white">Contacto</h3>
+          <p class="text-gray-600 dark:text-gray-400">
+            Email: general_lab@hotmail.com<br>
+            Horario: Lunes a Viernes 9:00 - 18:00
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .fade-in {
+    animation: fadeIn 1s ease-out;
+  }
+</style>

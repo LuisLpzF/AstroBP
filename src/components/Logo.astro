@@ -1,0 +1,58 @@
+---
+// Importa la imagen del logo
+import { Image } from 'astro:assets';
+import logoImage from '../assets/img/ed8a8707-b716-4c6c-83d5-96eb17eda4bf-removebg-preview.png';
+
+interface Props {
+  class?: string;
+  size?: "sm" | "md" | "lg";
+  href?: string;
+}
+
+const { 
+  class: className = "", 
+  size = "md",
+  href = "/"
+} = Astro.props;
+
+// Mapeo de tamaños
+const sizes = {
+  sm: { width: 80, height: 32 },
+  md: { width: 120, height: 40 },
+  lg: { width: 160, height: 56 },
+};
+
+const { width, height } = sizes[size] || sizes.md;
+---
+
+<a href={href} class={`inline-block ${className} animate-water`}>
+  <Image 
+    src={logoImage}
+    width={width}
+    height={height}
+    alt="Logo General Lab" 
+    class="object-contain"
+    loading="eager"
+  />
+</a>
+
+<style>
+  .animate-water {
+    animation: fadeWater 2s ease-out forwards;
+  }
+
+  @keyframes fadeWater {
+    0% {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    50% {
+      opacity: 0.5;
+      transform: scale(1.1);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+</style>

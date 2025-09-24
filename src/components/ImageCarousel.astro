@@ -1,0 +1,95 @@
+---
+// Importa las imágenes directamente
+import logo1 from '../assets/logos/logo.png';
+import logo2 from '../assets/logos/logo2.png';
+import logo3 from '../assets/logos/logo3.png';
+import logo4 from '../assets/logos/logo4.png';
+import logo5 from '../assets/logos/logo5.png';
+import logo6 from '../assets/logos/logo6.png';
+import logo10 from '../assets/logos/logo10.png';
+import logo11 from '../assets/logos/logo11.png';
+import logo12 from '../assets/logos/logo12.png';
+import logo13 from '../assets/logos/logo13.png';
+import logo14 from '../assets/logos/logo14.png';
+import logo15 from '../assets/logos/logo15.png';
+import logo16 from '../assets/logos/logo16.png';
+import logo17 from '../assets/logos/logo17.png';
+import SM from '../assets/logos/SM.png';
+import Uline from '../assets/logos/Uline.png';
+import pyrex from '../assets/logos/pyrex.png';
+
+
+// Usa los logos importados
+const logos = [
+    { src: logo1.src, alt: 'Logo 1' },
+    { src: logo2.src, alt: 'Logo 2' },
+    { src: logo3.src, alt: 'Logo 3' },
+    { src: logo4.src, alt: 'Logo 4' },
+    { src: logo5.src, alt: 'Logo 5' },
+    { src: logo6.src, alt: 'Logo 6' },
+    { src: logo10.src, alt: 'Logo 10' },
+    { src: logo11.src, alt: 'Logo 11' },
+    { src: logo12.src, alt: 'Logo 12' },
+    { src: logo13.src, alt: 'Logo 13' },
+    { src: logo14.src, alt: 'Logo 14' },
+    { src: logo15.src, alt: 'Logo 15' },
+    { src: logo16.src, alt: 'Logo 16' },
+    { src: logo17.src, alt: 'Logo 17' },
+    { src: pyrex.src, alt: 'Pyrex' },
+    { src: SM.src, alt: 'SM' },
+    { src: Uline.src, alt: 'Uline' },
+   
+];
+
+// Duplica los logos para crear efecto carrusel
+const duplicatedLogos = [...logos, ...logos];
+---
+
+<div class="carousel">
+    <div class="carousel-track">
+        {duplicatedLogos.map((logo, index) => (
+            <img src={logo.src} alt={logo.alt} />
+        ))}
+    </div>
+</div> 
+
+<style>
+    .carousel {
+        overflow: hidden;
+        width: 100%;
+        background: #fff;
+        padding: 20px 0;
+        margin: 40px 0;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .carousel-track {
+        display: flex;
+        animation: scroll 60s linear infinite;
+        gap: 40px;
+    }
+
+    .carousel-track img {
+        height: 50px;
+        width: auto;
+        object-fit: contain;
+    }
+
+    .carousel-track:hover {
+        animation-play-state: paused;
+    }
+
+    @keyframes scroll {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(calc(-50% - 20px)); /* Ajuste para compensar el gap */
+        }
+    }
+
+    /* Para modo oscuro */
+    :global(.dark) .carousel {
+        background: #1f2937;
+    }
+</style>

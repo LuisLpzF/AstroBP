@@ -1,0 +1,255 @@
+---
+interface Props {
+  images: {
+    src: string;
+    alt: string;
+    title?: string;
+    description?: string;
+  }[];
+  height?: string;
+  autoplayInterval?: number;
+}
+
+const { 
+  images, 
+  height = "h-64 md:h-96",
+  autoplayInterval = 5000 
+} = Astro.props;
+---
+
+<!-- Enhanced Carousel -->
+<!-- Change this line -->
+<div class="custom-carousel group relative max-w-4xl mx-auto overflow-hidden rounded-xl shadow-2xl">
+  <!-- Slides container with improved styling -->
+  <div class={`slides-container relative ${height}`}>
+    {images.map((image, index) => (
+      <div 
+        class="slide absolute inset-0 opacity-0 transition-all duration-700 ease-in-out transform scale-105" 
+        data-active={index === 0}
+      >
+        <img 
+          src={image.src}
+          alt={image.alt}
+          class="w-full h-full object-cover"
+        >
+        {(image.title || image.description) && (
+          <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6 text-white transform translate-y-2 opacity-0 transition-all duration-500 slide-caption">
+            {image.title && <h3 class="text-2xl font-bold mb-2">{image.title}</h3>}
+            {image.description && <p class="text-lg">{image.description}</p>}
+          </div>
+        )}
+      </div>
+    ))}
+  </div>
+  <button 
+    class="carousel-btn prev absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/70 rounded-full w-12 h-12 flex items-center justify-center focus:outline-none transition-all duration-300 opacity-0 group-hover:opacity-100 hover:scale-110"
+    aria-label="Imagen anterior"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6 text-white">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+    </svg>
+  </button>
+  
+  <button 
+    class="carousel-btn next absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/70 rounded-full w-12 h-12 flex items-center justify-center focus:outline-none transition-all duration-300 opacity-0 group-hover:opacity-100 hover:scale-110"
+    aria-label="Imagen siguiente"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6 text-white">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+    </svg>
+  </button>
+  
+  {images.length > 1 && (
+    <div class="carousel-indicators absolute bottom-6 left-1/2 -translate-x-1/2 flex space-x-3 z-10">
+      {images.map((_, index) => (
+        <button 
+          class={`w-3 h-3 rounded-full transition-all duration-300 ${index === 0 ? 'bg-white w-8' : 'bg-white/50 hover:bg-white/80'}`} 
+          data-index={index} 
+          aria-label={`Ir a slide ${index + 1}`}
+        ></button>
+      ))}
+    </div>
+  )}
+</div>
+
+<style>
+  /* Remove the problematic line */
+  /* .custom-carousel {
+    @apply group;
+  } */
+
+  .slide {
+    z-index: 1;
+  }
+  
+  .slide[data-active="true"] {
+    z-index: 2;
+    opacity: 1;
+    transform: scale(1);
+  }
+  
+  .slide[data-active="true"] .slide-caption {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  
+  .carousel-indicators button.active {
+    @apply bg-white w-8;
+  }
+  
+  /* Add a subtle shadow to the carousel */
+  .custom-carousel::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 30%;
+    background: linear-gradient(to top, rgba(0,0,0,0.3), transparent);
+    z-index: 1;
+    pointer-events: none;
+  }
+  
+  /* Add a subtle vignette effect */
+  .slides-container::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle, transparent 60%, rgba(0,0,0,0.2) 100%);
+    z-index: 3;
+    pointer-events: none;
+  }
+</style>
+
+<script define:vars={{autoplayInterval}}>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Carousel elements
+    const carousel = document.querySelector('.custom-carousel');
+    const slides = document.querySelectorAll('.slide');
+    const prevButton = document.querySelector('.carousel-btn.prev');
+    const nextButton = document.querySelector('.carousel-btn.next');
+    const indicators = document.querySelectorAll('.carousel-indicators button');
+    
+    let currentIndex = 0;
+    let interval = null;
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    // Function to show a specific slide
+    const showSlide = (index) => {
+      // Remove active state from current slide
+      const activeSlide = document.querySelector('.slide[data-active="true"]');
+      if (activeSlide) {
+        activeSlide.setAttribute('data-active', 'false');
+      }
+      
+      // Activate new slide
+      slides[index].setAttribute('data-active', 'true');
+      
+      // Update indicators
+      indicators.forEach((indicator, i) => {
+        if (i === index) {
+          indicator.classList.add('w-8', 'bg-white');
+          indicator.classList.remove('bg-white/50');
+        } else {
+          indicator.classList.remove('w-8', 'bg-white');
+          indicator.classList.add('bg-white/50');
+        }
+      });
+      
+      currentIndex = index;
+    };
+    
+    // Next slide function
+    const nextSlide = () => {
+      const newIndex = (currentIndex + 1) % slides.length;
+      showSlide(newIndex);
+    };
+    
+    // Previous slide function
+    const prevSlide = () => {
+      const newIndex = (currentIndex - 1 + slides.length) % slides.length;
+      showSlide(newIndex);
+    };
+    
+    // Set up event listeners
+    if (prevButton) {
+      prevButton.addEventListener('click', () => {
+        prevSlide();
+        resetInterval();
+      });
+    }
+    
+    if (nextButton) {
+      nextButton.addEventListener('click', () => {
+        nextSlide();
+        resetInterval();
+      });
+    }
+    
+    // Set up indicators
+    indicators.forEach((indicator, index) => {
+      indicator.addEventListener('click', () => {
+        showSlide(index);
+        resetInterval();
+      });
+    });
+    
+    // Add touch swipe support
+    if (carousel) {
+      carousel.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      });
+      
+      carousel.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+      });
+    }
+    
+    // Handle swipe direction
+    const handleSwipe = () => {
+      const swipeThreshold = 50;
+      if (touchEndX < touchStartX - swipeThreshold) {
+        // Swipe left - next slide
+        nextSlide();
+        resetInterval();
+      } else if (touchEndX > touchStartX + swipeThreshold) {
+        // Swipe right - previous slide
+        prevSlide();
+        resetInterval();
+      }
+    };
+    
+    // Start autoplay
+    const startInterval = () => {
+      if (slides.length > 1) {
+        interval = setInterval(nextSlide, autoplayInterval);
+      }
+    };
+    
+    // Reset interval when user interacts
+    const resetInterval = () => {
+      if (interval) {
+        clearInterval(interval);
+        startInterval();
+      }
+    };
+    
+    // Pause autoplay when user hovers over carousel
+    if (carousel) {
+      carousel.addEventListener('mouseenter', () => {
+        if (interval) clearInterval(interval);
+      });
+      
+      carousel.addEventListener('mouseleave', () => {
+        startInterval();
+      });
+    }
+    
+    // Initialize carousel
+    if (slides.length > 0) {
+      startInterval();
+    }
+  });
+</script>
